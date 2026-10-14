@@ -11,6 +11,8 @@ const DESCRIPTIONS = {
 const radios = document.querySelectorAll('input[name="mode"]');
 const description = document.getElementById("description");
 
+document.getElementById("version").textContent = `v${chrome.runtime.getManifest().version}`;
+
 function render(mode) {
   radios.forEach((radio) => {
     radio.checked = radio.value === mode;
