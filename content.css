@@ -1,0 +1,12 @@
+/*
+ * GIFs are hidden only while <html> has the "ythg-enabled" class,
+ * which content.js toggles from the popup switch.
+ *
+ * YouTube renders a comment GIF as an image attachment whose src points to an
+ * animated webp on i.ytimg.com, e.g. ".../c_exp/...webp_animated_original_aspect_ratio.webp".
+ * The whole attachment is hidden so no empty placeholder box is left behind.
+ * Static image attachments (if any) are kept.
+ */
+html.ythg-enabled ytw-comment-image-attachment-view-model:has(img[src*="animated"]) {
+  display: none !important;
+}
