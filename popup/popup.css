@@ -125,8 +125,44 @@ main {
 /* Footer */
 
 footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 8px 16px 10px;
   border-top: 1px solid var(--border);
   color: var(--muted);
   font-size: 11px;
+}
+
+/* Language switch: two small text badges, the active one highlighted. */
+.lang {
+  display: flex;
+  gap: 4px;
+}
+
+.lang button {
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.lang button:hover {
+  color: var(--text);
+}
+
+.lang button[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.lang button:focus-visible {
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 1px;
 }

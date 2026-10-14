@@ -5,10 +5,11 @@
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
+  <!-- Elements with data-i18n get their text from STRINGS in popup.js. -->
   <header>
     <h1><img src="../icons/icon32.png" alt="" width="20" height="20"> YouTube Hide GIFs</h1>
     <p class="byline">
-      Created by
+      <span data-i18n="createdBy"></span>
       <a href="https://github.com/PrykhodkoV22" target="_blank" rel="noopener" title="GitHub">
         PrykhodkoV22
         <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
@@ -19,10 +20,10 @@
   </header>
 
   <main>
-    <div class="segmented" role="radiogroup" aria-label="GIF в комментариях" aria-describedby="description">
-      <label><input type="radio" name="mode" value="off"><span>Показывать</span></label>
-      <label><input type="radio" name="mode" value="reveal"><span>По кнопке</span></label>
-      <label><input type="radio" name="mode" value="hide-comment"><span>Скрыть</span></label>
+    <div class="segmented" role="radiogroup" aria-describedby="description">
+      <label><input type="radio" name="mode" value="off"><span data-i18n="off"></span></label>
+      <label><input type="radio" name="mode" value="reveal"><span data-i18n="reveal"></span></label>
+      <label><input type="radio" name="mode" value="hide-comment"><span data-i18n="hide-comment"></span></label>
     </div>
 
     <p id="description"></p>
@@ -30,6 +31,10 @@
 
   <footer>
     <span id="version"></span>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="ru" title="Русский">RU</button>
+      <button type="button" data-lang="en" title="English">EN</button>
+    </div>
   </footer>
 
   <script src="popup.js"></script>
