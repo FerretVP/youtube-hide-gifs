@@ -33,8 +33,11 @@ html[data-ythg-mode="hide-comment"] ytd-comment-view-model:has(ytw-comment-image
   display: none;
 }
 
+/* Block-level (but only as wide as its text) so it always sits on its own
+   line below the comment text instead of next to it. */
 html[data-ythg-mode="reveal"] .ythg-reveal-btn {
-  display: inline-flex;
+  display: flex;
+  width: fit-content;
   align-items: center;
   gap: 6px;
   margin: 6px 0;
