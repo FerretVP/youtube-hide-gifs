@@ -2,7 +2,6 @@
  * The mode is set on <html data-ythg-mode="..."> by content.js:
  *   off          - do nothing
  *   reveal       - hide GIFs, show a "Show GIF" button in their place
- *   hide         - hide GIFs completely
  *   hide-comment - hide every comment that contains a GIF
  *
  * YouTube renders a comment GIF as an image attachment whose src points to an
@@ -11,7 +10,6 @@
  * Static image attachments (if any) are kept.
  */
 
-html[data-ythg-mode="hide"] ytw-comment-image-attachment-view-model:has(img[src*="animated"]),
 html[data-ythg-mode="reveal"] ytw-comment-image-attachment-view-model:has(img[src*="animated"]):not(.ythg-revealed) {
   display: none !important;
 }

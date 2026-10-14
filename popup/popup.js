@@ -1,11 +1,10 @@
 // Slider positions, in order. Keep in sync with MODES in content.js.
-const MODES = ["off", "reveal", "hide", "hide-comment"];
-const DEFAULT_MODE = "hide";
+const MODES = ["off", "reveal", "hide-comment"];
+const DEFAULT_MODE = "reveal";
 
 const DESCRIPTIONS = {
   off: "Гифки показываются как обычно.",
   reveal: "Гифки скрыты. На их месте кнопка «Показать GIF».",
-  hide: "Гифки скрыты полностью, текст комментария остаётся.",
   "hide-comment": "Комментарии с гифками скрыты целиком.",
 };
 
@@ -26,7 +25,8 @@ function save(index) {
   chrome.storage.sync.set({ mode });
 }
 
-// Older versions stored a boolean "enabled" instead of a mode.
+// Older versions stored a boolean "enabled" instead of a mode, or the
+// removed "hide" mode; both fall back to the default.
 chrome.storage.sync.get({ mode: null, enabled: null }, (stored) => {
   let mode = stored.mode;
   if (!MODES.includes(mode)) mode = stored.enabled === false ? "off" : DEFAULT_MODE;
