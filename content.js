@@ -37,7 +37,6 @@ function syncModeAttribute() {
 function apply(newMode) {
   mode = newMode;
   syncModeAttribute();
-  console.debug("[YouTube Hide GIFs] mode:", mode);
   if (mode === "reveal") scheduleScan();
 }
 
