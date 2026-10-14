@@ -19,17 +19,13 @@
   </header>
 
   <main>
-    <section class="card">
-      <h2 id="title">GIF в комментариях</h2>
+    <div class="segmented" role="radiogroup" aria-label="GIF в комментариях" aria-describedby="description">
+      <label><input type="radio" name="mode" value="off"><span>Показывать</span></label>
+      <label><input type="radio" name="mode" value="reveal"><span>По кнопке</span></label>
+      <label><input type="radio" name="mode" value="hide-comment"><span>Скрыть</span></label>
+    </div>
 
-      <div class="segmented" role="radiogroup" aria-labelledby="title" aria-describedby="description">
-        <label><input type="radio" name="mode" value="off"><span>Показывать</span></label>
-        <label><input type="radio" name="mode" value="reveal"><span>По кнопке</span></label>
-        <label><input type="radio" name="mode" value="hide-comment"><span>Скрыть</span></label>
-      </div>
-
-      <p id="description"></p>
-    </section>
+    <p id="description"></p>
   </main>
 
   <footer>

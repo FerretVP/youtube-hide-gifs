@@ -1,6 +1,5 @@
 :root {
   --bg: #171b22;
-  --surface: #20252e;
   --track: #12151b;
   --border: #2e3541;
   --text: #eef1f5;
@@ -59,23 +58,10 @@ h1 img {
   color: var(--text);
 }
 
-/* Settings card */
+/* Settings */
 
 main {
   padding: 14px 16px;
-}
-
-.card {
-  padding: 14px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--surface);
-}
-
-h2 {
-  margin: 0 0 12px;
-  font-size: 14px;
-  font-weight: 600;
 }
 
 /* Segmented control: a dark track with the selected option raised as a blue pill. */
