@@ -2,8 +2,8 @@
 // this script only sets the mode attribute and, in "reveal" mode, adds
 // a "Show GIF" button next to every hidden GIF.
 
-const MODES = ["off", "reveal", "hide", "hide-comment"];
-const DEFAULT_MODE = "hide";
+const MODES = ["off", "reveal", "hide-comment"];
+const DEFAULT_MODE = "reveal";
 
 const ATTACHMENT = "ytw-comment-image-attachment-view-model";
 const GIF_IMG = 'img[src*="animated"]';
@@ -12,7 +12,8 @@ const REVEALED_CLASS = "ythg-revealed";
 
 let mode = DEFAULT_MODE;
 
-// Older versions stored a boolean "enabled" instead of a mode.
+// Older versions stored a boolean "enabled" instead of a mode, or the
+// removed "hide" mode; both fall back to the default.
 function readMode(stored) {
   if (MODES.includes(stored.mode)) return stored.mode;
   return stored.enabled === false ? "off" : DEFAULT_MODE;

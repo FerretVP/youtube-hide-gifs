@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "YouTube Hide GIFs",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Hides GIFs in YouTube comments.",
   "permissions": ["storage"],
   "action": {
