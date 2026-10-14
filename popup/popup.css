@@ -1,78 +1,168 @@
+:root {
+  --bg: #171b22;
+  --track: #12151b;
+  --border: #2e3541;
+  --text: #eef1f5;
+  --muted: #8a94a3;
+  --accent: #2563eb;
+  --accent-hover: #3b82f6;
+}
+
 body {
   margin: 0;
-  padding: 16px;
   width: 320px;
-  background: #fff;
-  color: #0f0f0f;
+  background: var(--bg);
+  color: var(--text);
   font: 14px/1.4 system-ui, sans-serif;
 }
 
+/* Header */
+
+header {
+  padding: 16px 16px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
 h1 {
-  margin: 0 0 16px;
-  font-size: 15px;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
 }
 
-/* 3-step slider. The track is inset by half a column on each side
-   so its stops line up with the centers of the labels below. */
-input[type="range"] {
-  appearance: none;
-  display: block;
-  width: 66.67%;
-  height: 22px;
-  margin: 0 auto;
-  background: transparent;
-  cursor: pointer;
+h1 img {
+  border-radius: 5px;
 }
 
-input[type="range"]::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 2px;
-  background: #ccc;
+.byline {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
 }
 
-input[type="range"]::-webkit-slider-thumb {
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  margin-top: -7px;
-  border-radius: 50%;
-  background: #065fd4;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+.byline a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--muted);
+  text-decoration: none;
 }
 
-input[type="range"]:focus-visible {
-  outline: 2px solid #065fd4;
-  outline-offset: 2px;
-  border-radius: 4px;
+.byline a:hover {
+  color: var(--text);
 }
 
-.labels {
+.byline svg {
+  color: var(--text);
+}
+
+/* Settings */
+
+main {
+  padding: 14px 16px;
+}
+
+/* Segmented control: a dark track with the selected option raised as a blue pill. */
+.segmented {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin-top: 6px;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--track);
 }
 
-.labels button {
-  padding: 2px;
-  border: 0;
-  background: none;
-  color: #606060;
-  font: inherit;
-  font-size: 12px;
-  line-height: 1.2;
-  text-align: center;
+.segmented label {
+  position: relative;
   cursor: pointer;
 }
 
-.labels button.active {
-  color: #065fd4;
+/* The radio stays focusable and readable by screen readers, just invisible. */
+.segmented input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.segmented span {
+  display: block;
+  padding: 7px 4px;
+  border-radius: 7px;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.segmented label:hover span {
+  color: var(--text);
+}
+
+.segmented input:checked + span {
+  background: var(--accent);
+  color: #fff;
   font-weight: 600;
+}
+
+.segmented label:hover input:checked + span {
+  background: var(--accent-hover);
+}
+
+.segmented input:focus-visible + span {
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 1px;
 }
 
 #description {
-  min-height: 3em;
-  margin: 14px 0 0;
-  color: #606060;
-  font-size: 13px;
+  min-height: 2.8em;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Footer */
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px 10px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* Language switch: two small text badges, the active one highlighted. */
+.lang {
+  display: flex;
+  gap: 4px;
+}
+
+.lang button {
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.lang button:hover {
+  color: var(--text);
+}
+
+.lang button[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.lang button:focus-visible {
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 1px;
 }

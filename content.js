@@ -4,6 +4,12 @@
 
 const MODES = ["off", "reveal", "hide-comment"];
 const DEFAULT_MODE = "reveal";
+const LANGS = ["ru", "en"];
+
+const BUTTON_TEXT = {
+  ru: { show: "Показать GIF", hide: "Скрыть GIF" },
+  en: { show: "Show GIF", hide: "Hide GIF" },
+};
 
 const ATTACHMENT = "ytw-comment-image-attachment-view-model";
 const GIF_IMG = 'img[src*="animated"]';
@@ -11,6 +17,8 @@ const BUTTON_CLASS = "ythg-reveal-btn";
 const REVEALED_CLASS = "ythg-revealed";
 
 let mode = DEFAULT_MODE;
+// Until the user picks a language in the popup, follow the browser's.
+let lang = chrome.i18n.getUILanguage().startsWith("ru") ? "ru" : "en";
 
 // Older versions stored a boolean "enabled" instead of a mode, or the
 // removed "hide" mode; both fall back to the default.
@@ -29,12 +37,19 @@ function syncModeAttribute() {
 function apply(newMode) {
   mode = newMode;
   syncModeAttribute();
-  console.debug("[YouTube Hide GIFs] mode:", mode);
   if (mode === "reveal") scheduleScan();
 }
 
 function setButtonText(button, revealed) {
-  button.textContent = revealed ? "Скрыть GIF" : "Показать GIF";
+  button.textContent = revealed ? BUTTON_TEXT[lang].hide : BUTTON_TEXT[lang].show;
+}
+
+function setLang(newLang) {
+  if (!LANGS.includes(newLang)) return;
+  lang = newLang;
+  for (const button of document.querySelectorAll(`.${BUTTON_CLASS}`)) {
+    setButtonText(button, button.nextElementSibling?.classList.contains(REVEALED_CLASS));
+  }
 }
 
 function addRevealButton(attachment) {
@@ -99,10 +114,13 @@ new MutationObserver(() => {
   attributeFilter: ["src", "data-ythg-mode"],
 });
 
-chrome.storage.sync.get({ mode: null, enabled: null }, (stored) => apply(readMode(stored)));
+chrome.storage.sync.get({ mode: null, enabled: null, lang: null }, (stored) => {
+  setLang(stored.lang);
+  apply(readMode(stored));
+});
 
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === "sync" && "mode" in changes) {
-    apply(readMode({ mode: changes.mode.newValue }));
-  }
+  if (area !== "sync") return;
+  if ("lang" in changes) setLang(changes.lang.newValue);
+  if ("mode" in changes) apply(readMode({ mode: changes.mode.newValue }));
 });
