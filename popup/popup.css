@@ -8,71 +8,62 @@ body {
 }
 
 h1 {
-  margin: 0 0 16px;
+  margin: 0 0 12px;
   font-size: 15px;
   font-weight: 600;
 }
 
-/* 3-step slider. The track is inset by half a column on each side
-   so its stops line up with the centers of the labels below. */
-input[type="range"] {
-  appearance: none;
-  display: block;
-  width: 66.67%;
-  height: 22px;
-  margin: 0 auto;
-  background: transparent;
-  cursor: pointer;
-}
-
-input[type="range"]::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 2px;
-  background: #ccc;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  margin-top: -7px;
-  border-radius: 50%;
-  background: #065fd4;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-input[type="range"]:focus-visible {
-  outline: 2px solid #065fd4;
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-.labels {
+/* Segmented control: a gray track with the selected option raised as a white pill. */
+.segmented {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin-top: 6px;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: #f0f0f0;
 }
 
-.labels button {
-  padding: 2px;
-  border: 0;
-  background: none;
-  color: #606060;
-  font: inherit;
-  font-size: 12px;
-  line-height: 1.2;
-  text-align: center;
+.segmented label {
+  position: relative;
   cursor: pointer;
 }
 
-.labels button.active {
+/* The radio stays focusable and readable by screen readers, just invisible. */
+.segmented input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.segmented span {
+  display: block;
+  padding: 7px 4px;
+  border-radius: 7px;
+  color: #606060;
+  font-size: 13px;
+  text-align: center;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+
+.segmented label:hover span {
+  color: #0f0f0f;
+}
+
+.segmented input:checked + span {
+  background: #fff;
   color: #065fd4;
   font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.segmented input:focus-visible + span {
+  outline: 2px solid #065fd4;
+  outline-offset: 1px;
 }
 
 #description {
-  min-height: 3em;
-  margin: 14px 0 0;
+  min-height: 2.8em;
+  margin: 10px 0 0;
   color: #606060;
-  font-size: 13px;
+  font-size: 12px;
 }

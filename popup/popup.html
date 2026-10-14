@@ -5,14 +5,12 @@
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <h1>GIF в комментариях</h1>
+  <h1 id="title">GIF в комментариях</h1>
 
-  <input type="range" id="mode" min="0" max="2" step="1" aria-describedby="description">
-
-  <div class="labels">
-    <button type="button" data-index="0">Показывать</button>
-    <button type="button" data-index="1">По кнопке</button>
-    <button type="button" data-index="2">Скрыть коммент.</button>
+  <div class="segmented" role="radiogroup" aria-labelledby="title" aria-describedby="description">
+    <label><input type="radio" name="mode" value="off"><span>Показывать</span></label>
+    <label><input type="radio" name="mode" value="reveal"><span>По кнопке</span></label>
+    <label><input type="radio" name="mode" value="hide-comment"><span>Скрыть</span></label>
   </div>
 
   <p id="description"></p>

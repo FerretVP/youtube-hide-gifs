@@ -1,28 +1,21 @@
-// Slider positions, in order. Keep in sync with MODES in content.js.
+// Keep in sync with MODES in content.js.
 const MODES = ["off", "reveal", "hide-comment"];
 const DEFAULT_MODE = "reveal";
 
 const DESCRIPTIONS = {
-  off: "Гифки показываются как обычно.",
-  reveal: "Гифки скрыты. На их месте кнопка «Показать GIF».",
-  "hide-comment": "Комментарии с гифками скрыты целиком.",
+  off: "GIF показываются как обычно.",
+  reveal: "GIF скрыты. Нажмите «Показать GIF», чтобы просмотреть их.",
+  "hide-comment": "Комментарии с GIF скрыты целиком, вместе с ответами.",
 };
 
-const slider = document.getElementById("mode");
-const labels = document.querySelectorAll(".labels button");
+const radios = document.querySelectorAll('input[name="mode"]');
 const description = document.getElementById("description");
 
 function render(mode) {
-  const index = MODES.indexOf(mode);
-  slider.value = index;
-  labels.forEach((label, i) => label.classList.toggle("active", i === index));
+  radios.forEach((radio) => {
+    radio.checked = radio.value === mode;
+  });
   description.textContent = DESCRIPTIONS[mode];
-}
-
-function save(index) {
-  const mode = MODES[index];
-  render(mode);
-  chrome.storage.sync.set({ mode });
 }
 
 // Older versions stored a boolean "enabled" instead of a mode, or the
@@ -33,7 +26,9 @@ chrome.storage.sync.get({ mode: null, enabled: null }, (stored) => {
   render(mode);
 });
 
-slider.addEventListener("input", () => save(Number(slider.value)));
-labels.forEach((label) => {
-  label.addEventListener("click", () => save(Number(label.dataset.index)));
+radios.forEach((radio) => {
+  radio.addEventListener("change", () => {
+    render(radio.value);
+    chrome.storage.sync.set({ mode: radio.value });
+  });
 });
