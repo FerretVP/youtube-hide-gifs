@@ -1,12 +1,54 @@
 /*
- * GIFs are hidden only while <html> has the "ythg-enabled" class,
- * which content.js toggles from the popup switch.
+ * The mode is set on <html data-ythg-mode="..."> by content.js:
+ *   off          - do nothing
+ *   reveal       - hide GIFs, show a "Show GIF" button in their place
+ *   hide         - hide GIFs completely
+ *   hide-comment - hide every comment that contains a GIF
  *
  * YouTube renders a comment GIF as an image attachment whose src points to an
  * animated webp on i.ytimg.com, e.g. ".../c_exp/...webp_animated_original_aspect_ratio.webp".
  * The whole attachment is hidden so no empty placeholder box is left behind.
  * Static image attachments (if any) are kept.
  */
-html.ythg-enabled ytw-comment-image-attachment-view-model:has(img[src*="animated"]) {
+
+html[data-ythg-mode="hide"] ytw-comment-image-attachment-view-model:has(img[src*="animated"]),
+html[data-ythg-mode="reveal"] ytw-comment-image-attachment-view-model:has(img[src*="animated"]):not(.ythg-revealed) {
   display: none !important;
+}
+
+/* A GIF in a top-level comment hides the whole thread, replies included.
+   Top-level comments are the ones outside ytd-comment-replies-renderer. */
+html[data-ythg-mode="hide-comment"] ytd-comment-thread-renderer:has(
+  ytd-comment-view-model:not(ytd-comment-replies-renderer ytd-comment-view-model)
+    ytw-comment-image-attachment-view-model img[src*="animated"]
+) {
+  display: none !important;
+}
+
+/* A GIF in a reply hides only that reply. */
+html[data-ythg-mode="hide-comment"] ytd-comment-view-model:has(ytw-comment-image-attachment-view-model img[src*="animated"]) {
+  display: none !important;
+}
+
+/* "Show GIF" / "Hide GIF" button, inserted by content.js */
+.ythg-reveal-btn {
+  display: none;
+}
+
+html[data-ythg-mode="reveal"] .ythg-reveal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0;
+  padding: 4px 12px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--yt-spec-badge-chip-background, rgba(0, 0, 0, 0.05));
+  color: var(--yt-spec-text-primary, #0f0f0f);
+  font: 500 1.2rem/1.8rem Roboto, Arial, sans-serif;
+  cursor: pointer;
+}
+
+html[data-ythg-mode="reveal"] .ythg-reveal-btn:hover {
+  background: var(--yt-spec-button-chip-background-hover, rgba(0, 0, 0, 0.1));
 }

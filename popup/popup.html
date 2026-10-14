@@ -5,10 +5,19 @@
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <label class="row">
-    <span>Скрывать GIF в комментариях</span>
-    <input type="checkbox" id="enabled" class="switch">
-  </label>
+  <h1>GIF в комментариях</h1>
+
+  <input type="range" id="mode" min="0" max="3" step="1" aria-describedby="description">
+
+  <div class="labels">
+    <button type="button" data-index="0">Показывать</button>
+    <button type="button" data-index="1">По кнопке</button>
+    <button type="button" data-index="2">Скрыть GIF</button>
+    <button type="button" data-index="3">Скрыть коммент.</button>
+  </div>
+
+  <p id="description"></p>
+
   <script src="popup.js"></script>
 </body>
 </html>

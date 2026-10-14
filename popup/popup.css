@@ -1,51 +1,78 @@
 body {
   margin: 0;
   padding: 16px;
-  width: 260px;
+  width: 320px;
   background: #fff;
   color: #0f0f0f;
   font: 14px/1.4 system-ui, sans-serif;
 }
 
-.row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  cursor: pointer;
+h1 {
+  margin: 0 0 16px;
+  font-size: 15px;
+  font-weight: 600;
 }
 
-/* Slider switch built from a plain checkbox */
-.switch {
+/* 4-step slider. The track is inset by half a column on each side
+   so its stops line up with the centers of the labels below. */
+input[type="range"] {
   appearance: none;
-  flex-shrink: 0;
-  position: relative;
-  width: 40px;
+  display: block;
+  width: 75%;
   height: 22px;
-  margin: 0;
-  border-radius: 11px;
-  background: #ccc;
+  margin: 0 auto;
+  background: transparent;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
-.switch::before {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: #ccc;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
   width: 18px;
   height: 18px;
+  margin-top: -7px;
   border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s;
-}
-
-.switch:checked {
   background: #065fd4;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.switch:checked::before {
-  transform: translateX(18px);
+input[type="range"]:focus-visible {
+  outline: 2px solid #065fd4;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.labels {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 6px;
+}
+
+.labels button {
+  padding: 2px;
+  border: 0;
+  background: none;
+  color: #606060;
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+}
+
+.labels button.active {
+  color: #065fd4;
+  font-weight: 600;
+}
+
+#description {
+  min-height: 3em;
+  margin: 14px 0 0;
+  color: #606060;
+  font-size: 13px;
 }
